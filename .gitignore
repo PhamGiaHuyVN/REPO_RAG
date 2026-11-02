@@ -2,3 +2,4 @@
 .idea
 .repo_index
 __pycache__/
+sql

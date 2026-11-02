@@ -11,6 +11,22 @@ def index(full: bool = False):
     index_repo(full)
 
 @app.command()
+def db():
+    from db_query import ask_db
+    while True:
+        q = console.input("\n[bold green]🗄 Hỏi DB:[/bold green] ").strip()
+        if not q:
+            continue
+        if q in {"exit", "quit"}:
+            break
+        with console.status("[yellow]Đang truy vấn..."):
+            try:
+                answer = ask_db(q)
+            except Exception as e:
+                answer = f"Lỗi: {e}"
+        console.print(Markdown(answer))
+
+@app.command()
 def ask():
     from chat import ask as ask_fn
     while True:
