@@ -40,6 +40,11 @@ answer_prompt = ChatPromptTemplate.from_messages([
 def format_docs(docs):
     return "\n\n".join(f"[{d.metadata.get('source')}]\n{d.page_content}" for d in docs)
 
+def remember(question: str, answer: str, max_chars: int = 1500):
+    """Ghi một lượt hỏi-đáp từ nguồn khác (vd: /db) vào lịch sử chat chính."""
+    history.extend([("human", question), ("ai", answer[:max_chars])])
+    del history[:-12]
+
 def ask(question: str) -> str:
     question = question.strip()
     if not question:
@@ -65,11 +70,7 @@ def ask(question: str) -> str:
 
     t3 = time.perf_counter()
 
-
     print(f"\n⏱ viết lại câu hỏi: {t1-t0:.2f}s | truy hồi (Ollama embed + search): "f"{t2-t1:.2f}s | Gemini trả lời: {t3-t2:.2f}s")
-
-    history.extend([("human", question), ("ai", answer)])
-    del history[:-12]
 
     sources = sorted({d.metadata.get("source") for d in docs})
     return answer + "\n\n---\n**Nguồn truy hồi:**\n" + "\n".join(f"- `{s}`" for s in sources)

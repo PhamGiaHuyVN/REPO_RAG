@@ -112,6 +112,10 @@ def append_history(label, k, total):
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--penalty", type=float, default=None,
+                    help="hệ số hạ điểm test/migration, 1.0 = tắt (mặc định dùng giá trị trong retriever.py)")
+    ap.add_argument("--rerank", action="store_true",
+                    help="bật cross-encoder bge-reranker-v2-m3")
     ap.add_argument("--k", type=int, default=8, help="số chunk truy hồi")
     ap.add_argument("--label", default="baseline",
                     help="tên lần đo, ví dụ 'tokenizer' hoặc 'reranker'")
@@ -122,7 +126,7 @@ def main():
     check_expected(items)
 
     print("Đang dựng retriever...")
-    retriever = build_retriever(k=args.k)
+    retriever = build_retriever(k=args.k, use_rerank=args.rerank)
 
     # khởi động nóng: lần gọi đầu nạp model Ollama nên chậm, không tính vào số đo
     retriever.invoke("warm up")
