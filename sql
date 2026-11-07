@@ -1,6 +1,0 @@
-CREATE ROLE rag_ro LOGIN PASSWORD 'mat_khau_manh';
-GRANT CONNECT ON DATABASE plate TO rag_ro;
-GRANT USAGE ON SCHEMA public TO rag_ro;
-GRANT SELECT ON ALL TABLES IN SCHEMA public TO rag_ro;
-ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO rag_ro;
-ALTER ROLE rag_ro SET default_transaction_read_only = on;

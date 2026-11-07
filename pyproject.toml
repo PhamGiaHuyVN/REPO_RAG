@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rag-cli"
+version = "0.1.0"
+description = "CLI hỏi đáp codebase (RAG) + truy vấn PostgreSQL + lịch sử git"
+requires-python = ">=3.10"
+dependencies = [
+    "typer",
+    "rich",
+    "python-dotenv",
+    "langchain-core",
+    "langchain-community",
+    "langchain-text-splitters",
+    "langchain-chroma",
+    "langchain-ollama",
+    "langchain-google-genai",
+    "rank-bm25",          # BM25Retriever cần thư viện này
+    "sqlalchemy",
+    "psycopg2-binary",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+rag-cli = "rag_cli.cli.app:app"
+
+[tool.setuptools.packages.find]
+include = ["rag_cli*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,9 +1,18 @@
+"""Cấu hình tập trung (thay cho config.py cũ).
+
+Các module khác import tường minh từ đây, không dùng `from config import *`.
+"""
 from pathlib import Path
+
+from dotenv import find_dotenv, load_dotenv
 from langchain_text_splitters import Language
 
+# Nạp .env (tìm từ thư mục đang chạy trở lên). Nạp một lần, ở đây.
+load_dotenv(find_dotenv(usecwd=True))
+
 REPO = Path(r"C:\Users\Huy\PycharmProjects\WelcomeScreen\plate-api")
-DB_DIR = Path("./.repo_index")
-COLLECTION = "repo"
+DB_DIR = Path("./.repo_index")   # giữ nguyên: đổi sẽ mất dữ liệu đã index
+COLLECTION = "repo"              # giữ nguyên: đổi sẽ mất dữ liệu đã index
 
 EMBED_MODEL = "bge-m3"
 LLM_MODEL = "gemini-3.1-flash-lite"

@@ -1,0 +1,15 @@
+typer
+rich
+python-dotenv
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-chroma
+langchain-ollama
+langchain-google-genai
+rank-bm25
+sqlalchemy
+psycopg2-binary
+
+[dev]
+pytest

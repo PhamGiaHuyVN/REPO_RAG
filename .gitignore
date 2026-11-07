@@ -3,3 +3,4 @@
 .repo_index
 __pycache__/
 sql
+config.py
